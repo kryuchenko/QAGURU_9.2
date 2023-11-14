@@ -26,7 +26,7 @@ def test_google_search(setup_browser):
     search_field.press_enter()
     search_results = browser.element('#search')
     search_results.should(have.text('test'))
-    assert search_results.matching(have.text('test')), "Всё ок - тест прошел успешно"
+    search_results.matching(have.text('test'))
 
 
 def test_google_search_invalid_result(setup_browser):
@@ -38,4 +38,7 @@ def test_google_search_invalid_result(setup_browser):
     search_field.should(be.visible).type("ывпывпывп3п3пп33п3п")
     time.sleep(1)
     search_field.press_enter()
-    browser.element("//p[contains(text(), 'Your search did not match any documents.')]")
+
+    no_results_text = browser.element("//p[contains(text(), 'Your search did not match any documents.')]")
+    if not no_results_text.matching(be.visible):
+        raise Exception("Error: search results are not empty")
