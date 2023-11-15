@@ -37,3 +37,4 @@ def test_google_search_invalid_result(setup_browser):
     time.sleep(1)
     search_field.press_enter()
     browser.element('//*[@id="result-stats"]').should(have.text('About 0 results'))
+
